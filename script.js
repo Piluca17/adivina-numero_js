@@ -1,9 +1,13 @@
 //Configurar la aplicación (constantes y variables)
 
 const mensajeInicial = 'Empieza a adivinar...'
-let score = 20
+const SCORE = 20
+
+//variables de la aplicación
+let score
 let highScore = 0
-const secretNumber = Math.trunc(Math.random() * 20) + 1
+let secretNumber
+
 //Ejemplo 2
 //const numMinimo = 10
 //const numMaximo = 200
@@ -20,9 +24,7 @@ const againButton = document.querySelector('.again')
 const guessNumberField = document.querySelector('.guess')
 
 //Inicializar la aplicación
-messageField.textContent = mensajeInicial
-scoreField.textContent = score
-highScoreField.textContent = highScore
+initApp()
 
 //Funcionalidad de la aplicación
 
@@ -33,6 +35,8 @@ highScoreField.textContent = highScore
 //function mostrarMensaje() {
 // console.log('me han pulsado!')
 //}
+
+console.log(checkButton)
 
 checkButton.addEventListener(
   'click',
@@ -62,6 +66,8 @@ checkButton.addEventListener(
       checkButton.disabled = 'true'
       //mostrar el número secreto
       secretNumberField.textContent = secretNumber
+      secretNumberField.style.backgroundColor = 'yellow'
+      secretNumberField.style.width = '300px'
 
       //actualizar el highScore
       if (score > highScore) {
@@ -76,12 +82,27 @@ checkButton.addEventListener(
   //actualizar el score
   //actualizar el highScore
 )
-againButton.addEventListener (
-  'click',
-  () => {
+function initApp() {
+  //Inicializamos score
+  score = SCORE
+  scoreField.textContent = score
+
+  //TODO:Inicializar highScore
+  //habría que leer de algún almacenamiento: cookies, sessionStorage, localStorage
+
+  // highScoreField.textContent = highScore
+
+  //Inicializar el texto de inicio
   messageField.textContent = mensajeInicial
-  scoreField.textContent = 20
-  document.body.style.backgroundColor = 'blue'
-  
-  }
-)
+
+  //Inicializar el número secreto
+  secretNumber = Math.trunc(Math.random() * 20) + 1
+  secretNumberField.textContent = '?'
+
+  //Inicializar el aspecto visual de los elementos
+  document.body.style.backgroundColor = '#222'
+  secretNumberField.style.backgroundColor = '#fff'
+  secretNumberField.style.width = '150px'
+  checkButton.disabled = false
+}
+againButton.addEventListener('click', initApp)
