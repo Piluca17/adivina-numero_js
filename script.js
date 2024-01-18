@@ -1,12 +1,14 @@
 //Configurar la aplicación (constantes y variables)
 
 const mensajeInicial = 'Empieza a adivinar...'
-const SCORE = 20
+const INIT_SCORE = 20
+const INIT_HIGH_SCORE = 0
 
 //variables de la aplicación
 let score
-let highScore = 0
+let highScore
 let secretNumber
+//let score, highscore,secretNumber
 
 //Ejemplo 2
 //const numMinimo = 10
@@ -72,6 +74,7 @@ checkButton.addEventListener(
       //actualizar el highScore
       if (score > highScore) {
         highScore = score
+        localStorage.setItem('highscore', highScore)
         highScoreField.textContent = highScore
       }
     }
@@ -84,13 +87,17 @@ checkButton.addEventListener(
 )
 function initApp() {
   //Inicializamos score
-  score = SCORE
+  score = INIT_SCORE
   scoreField.textContent = score
 
-  //TODO:Inicializar highScore
-  //habría que leer de algún almacenamiento: cookies, sessionStorage, localStorage
+  //leer highScore del localstorage y
+  //si no está inicializarlo con INIT_HIGH_SCORE
 
-  // highScoreField.textContent = highScore
+  //pendiente añadir excepciones try-catch?????
+  highScore = Number(localStorage.getItem('highscore')) ?? INIT_HIGH_SCORE
+
+  // mostrarlo en pantalla
+  highScoreField.textContent = highScore
 
   //Inicializar el texto de inicio
   messageField.textContent = mensajeInicial
@@ -106,3 +113,6 @@ function initApp() {
   checkButton.disabled = false
 }
 againButton.addEventListener('click', initApp)
+
+
+
